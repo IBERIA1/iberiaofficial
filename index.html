@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I B E R † A</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: black url('https://i.imgur.com/btxfMEb.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: red;
+      overflow: hidden;
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px red;
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border: 2px solid red;
+      color: red;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: red;
+      color: black;
+    }
+    .admins {
+      margin-top: 30px;
+    }
+    .admins span {
+      display: block;
+    }
+    .lang-toggle {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      z-index: 3;
+    }
+    .lang-toggle button {
+      margin-left: 5px;
+      background: transparent;
+      border: 1px solid red;
+      color: red;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+  <canvas class="rain"></canvas>
+  <div class="overlay"></div>
+  <div class="lang-toggle">
+    <button onclick="setLang('ka')">🇬🇪</button>
+    <button onclick="setLang('en')">🇬🇧</button>
+  </div>
+  <div class="content">
+    <h1>• • • I B E R &dagger; A • • • #1 [Never Sleeps]</h1>
+    <a class="btn" href="https://www.facebook.com/groups/495922632371598" target="_blank">📘 Facebook Page</a>
+    <div class="btn">🕹️ Server IP: 185.143.177.14:999</div>
+    <div class="admins">
+      <h3>👑 Admins</h3>
+      <span>Giorgi Kiparoidze</span>
+      <span>Giorgi Gagnidze</span>
+      <span>I'M CHEF&lt;3</span>
+    </div>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      alert('ენა შეიცვლება: ' + (lang === 'ka' ? 'ქართული' : 'English'));
+    }
+
+    const canvas = document.querySelector(".rain");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const rainDrops = [];
+    for (let i = 0; i < 100; i++) {
+      rainDrops.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        length: Math.random() * 20 + 10,
+        opacity: Math.random(),
+        speed: Math.random() * 4 + 4
+      });
+    }
+
+    function drawRain() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+      ctx.lineWidth = 1;
+      for (let drop of rainDrops) {
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x, drop.y + drop.length);
+        ctx.stroke();
+      }
+      moveRain();
+      requestAnimationFrame(drawRain);
+    }
+
+    function moveRain() {
+      for (let drop of rainDrops) {
+        drop.y += drop.speed;
+        if (drop.y > canvas.height) {
+          drop.y = -drop.length;
+          drop.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    drawRain();
+  </script>
+</body>
+</html>
